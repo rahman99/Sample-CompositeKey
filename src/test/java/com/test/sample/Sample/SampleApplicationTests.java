@@ -49,13 +49,15 @@ public class SampleApplicationTests {
 		stock.getStockCategories().add(stockCategory);
 		
 		stockDao.save(stock);
+		
+		addCategory();
+		
 	}
 	
-//	@Test
 	public void addCategory(){
-		Category category1 = new Category("PRODUCER", "producer COMPANY");
+		Category category4 = new Category("PRODUCER", "producer COMPANY");
 		//new category, need save to get the id first
-		categoryDao.save(category1);
+		categoryDao.save(category4);
 		Category category2 = new Category("supplier", "supplier COMPANY");
 		//new category, need save to get the id first
 		categoryDao.save(category2);
@@ -74,7 +76,7 @@ public class SampleApplicationTests {
 		 stock1.setStockCode("004");
 		 stock1.setStockName("snack2");
 
-		 Category category1 = categoryDao.findOne(4);
+		 Category category1 = categoryDao.findOne(1);
 		 
 		 StockCategory stockCategory = new StockCategory();
 		 stockCategory.setStock(stock);
@@ -104,7 +106,7 @@ public class SampleApplicationTests {
 		Assert.assertNotNull(category2);
 		Assert.assertNotNull(category3);
 		
-		Stock stock = stockDao.findOne(1);
+		Stock stock = stockDao.findOne(2);
 		Assert.assertNotNull(stock);
 		
 		StockCategory stockCategory1 = new StockCategory();
