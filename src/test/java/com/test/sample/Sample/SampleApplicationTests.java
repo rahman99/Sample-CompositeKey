@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.management.relation.Role;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class SampleApplicationTests {
 		 stock1.setStockCode("004");
 		 stock1.setStockName("snack2");
 
-		 Category category1 = categoryDao.findOne(1);
+		 Category category1 = categoryDao.findOne(4);
 		 
 		 StockCategory stockCategory = new StockCategory();
 		 stockCategory.setStock(stock);
@@ -95,12 +96,16 @@ public class SampleApplicationTests {
 
 	}
 	
+	///saat menjalankan test update jadi error
 	@Test
 	public void updatesample(){
 		Category category2 = categoryDao.findOne(2);
 		Category category3 = categoryDao.findOne(3);
+		Assert.assertNotNull(category2);
+		Assert.assertNotNull(category3);
 		
 		Stock stock = stockDao.findOne(1);
+		Assert.assertNotNull(stock);
 		
 		StockCategory stockCategory1 = new StockCategory();
 		stockCategory1.setStock(stock);
