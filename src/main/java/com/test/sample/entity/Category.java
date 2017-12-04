@@ -31,7 +31,7 @@ public class Category implements Serializable{
 	@Column(name = "[DESC]", nullable = false)
 	private String desc;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade=CascadeType.ALL, orphanRemoval=true)
 	private Set<StockCategory> stockCategories = new HashSet<>();
 
 	public Category(String name, String desc) {

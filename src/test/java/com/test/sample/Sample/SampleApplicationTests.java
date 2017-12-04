@@ -32,12 +32,9 @@ public class SampleApplicationTests {
 
 //	@Test
 	public void sample() {
-		Stock stock = new Stock();
-		stock.setStockCode("001");
-		stock.setStockName("food");
+		Stock stock = new Stock("001", "food");
 
 		Category category1 = new Category("CONSUMER", "CONSUMER COMPANY");
-		//new category, need save to get the id first
 		categoryDao.save(category1);
 
 		StockCategory stockCategory = new StockCategory();
@@ -68,15 +65,12 @@ public class SampleApplicationTests {
 	
 //	@Test
 	public void addStock(){
-		 Stock stock = new Stock();
-		 stock.setStockCode("005");
-		 stock.setStockName("drink2");
+		 Stock stock = new Stock("002","drink");
 		 
-		 Stock stock1 = new Stock();
-		 stock1.setStockCode("004");
-		 stock1.setStockName("snack2");
+		 Stock stock1 = new Stock("003", "snack");
 
 		 Category category1 = categoryDao.findOne(1);
+		 Category category2 = categoryDao.findOne(2);
 		 
 		 StockCategory stockCategory = new StockCategory();
 		 stockCategory.setStock(stock);
@@ -93,16 +87,43 @@ public class SampleApplicationTests {
 		 stockCategory1.setCreatedDate(new Date()); //extra column
 		 stockCategory1.setCreatedBy("system"); //extra column
 		 
-		 stock1.getStockCategories().add(stockCategory1);
+		 StockCategory stockCategory2 = new StockCategory();
+		 stockCategory2.setStock(stock1);
+		 stockCategory2.setCategory(category2);
+		 stockCategory2.setCreatedDate(new Date()); //extra column
+		 stockCategory2.setCreatedBy("system"); //extra column
+		 
+		 Set<StockCategory> stockCategories = new HashSet<>();
+		 stockCategories.add(stockCategory1);
+		 stockCategories.add(stockCategory2);
+		 stock1.setStockCategories(stockCategories);
+//		 stock1.getStockCategories().add(stockCategory1);
+//		 stock1.getStockCategories().add(stockCategory2);
 		 stockDao.save(stock1);
 
 	}
 	
+	@Test //gagal
+	public void deleteStockCategory(){
+		Stock stock3 = stockDao.findOne(3);
+		Category category1 = categoryDao.findOne(1);
+		
+		StockCategory stockCategory1 = new StockCategory();
+		stockCategory1.setStock(stock3);
+		stockCategory1.setCategory(category1);
+		stockCategory1.setCreatedDate(new Date()); //extra column
+		stockCategory1.setCreatedBy("system"); //extra column
+		
+		stock3.removeStock(stockCategory1);
+		stockDao.save(stock3);
+	}
+	
 	///saat menjalankan test update jadi error
-	@Test
+//	@Test //gagal
 	public void updatesample(){
 		Category category2 = categoryDao.findOne(2);
 		Category category3 = categoryDao.findOne(3);
+		Category category1 = categoryDao.findOne(1);
 		Assert.assertNotNull(category2);
 		Assert.assertNotNull(category3);
 		
@@ -111,19 +132,26 @@ public class SampleApplicationTests {
 		
 		StockCategory stockCategory1 = new StockCategory();
 		stockCategory1.setStock(stock);
-		stockCategory1.setCategory(category2);
+		stockCategory1.setCategory(category1);
 		stockCategory1.setCreatedDate(new Date()); //extra column
 		stockCategory1.setCreatedBy("system"); //extra column
 		
 		StockCategory stockCategory2 = new StockCategory();
 		stockCategory2.setStock(stock);
-		stockCategory2.setCategory(category3);
+		stockCategory2.setCategory(category2);
 		stockCategory2.setCreatedDate(new Date()); //extra column
 		stockCategory2.setCreatedBy("system"); //extra column
 		
+		StockCategory stockCategory3 = new StockCategory();
+		stockCategory3.setStock(stock);
+		stockCategory3.setCategory(category3);
+		stockCategory3.setCreatedDate(new Date()); //extra column
+		stockCategory3.setCreatedBy("system"); //extra column
+		
 		Set<StockCategory> stockCategories = new HashSet<StockCategory>();
-		stockCategories.add(stockCategory1);
+//		stockCategories.add(stockCategory1);
 		stockCategories.add(stockCategory2);
+		stockCategories.add(stockCategory3);
 		
 		stock.setStockCategories(stockCategories);
 		

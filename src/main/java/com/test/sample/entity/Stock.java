@@ -34,17 +34,25 @@ public class Stock implements Serializable {
 	@Column(name = "STOCK_NAME", unique = true, nullable = false, length = 20)
 	private String stockName;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "stock", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "stock", cascade=CascadeType.ALL, orphanRemoval=true)
 	private Set<StockCategory> stockCategories = new HashSet<StockCategory>(0);
-	public Stock(Integer stockId, String stockCode, String stockName, Set<StockCategory> stockCategories) {
-		super();
-		this.stockId = stockId;
+	
+	public Stock(String stockCode, String stockName) {
 		this.stockCode = stockCode;
 		this.stockName = stockName;
-		this.stockCategories = stockCategories;
 	}
 	
 	public Stock(){}
+	
+	public void addStock(StockCategory stockCategory){
+		stockCategories.add(stockCategory);
+		stockCategory.setStock(this);
+	}
+	
+	public void removeStock(StockCategory stockCategory) {
+		stockCategories.remove(stockCategory);
+		stockCategory.setStock(null);
+	}
 
 	public Integer getStockId() {
 		return stockId;
