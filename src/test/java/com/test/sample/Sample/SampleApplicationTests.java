@@ -101,18 +101,10 @@ public class SampleApplicationTests {
 
 	}
 	
-//	@Test //gagal
-	public void DdeleteStockCategory(){
+	@Test //gagal
+	public void DUpdateStock(){
 		Stock stock3 = stockDao.findOne(3);
-		Category category1 = categoryDao.findOne(1);
-		
-		StockCategory stockCategory1 = new StockCategory();
-		stockCategory1.setStock(stock3);
-		stockCategory1.setCategory(category1);
-		stockCategory1.setCreatedDate(new Date()); //extra column
-		stockCategory1.setCreatedBy("system"); //extra column
-		
-		stock3.removeStock(stockCategory1);
+		stock3.setStockName("snack baby");
 		stockDao.save(stock3);
 	}
 	
@@ -128,11 +120,11 @@ public class SampleApplicationTests {
 		Stock stock = stockDao.findOne(2);
 		Assert.assertNotNull(stock);
 		
-		StockCategory stockCategory1 = new StockCategory();
-		stockCategory1.setStock(stock);
-		stockCategory1.setCategory(category1);
-		stockCategory1.setCreatedDate(new Date()); //extra column
-		stockCategory1.setCreatedBy("system"); //extra column
+//		StockCategory stockCategory1 = new StockCategory();
+//		stockCategory1.setStock(stock);
+//		stockCategory1.setCategory(category1);
+//		stockCategory1.setCreatedDate(new Date()); //extra column
+//		stockCategory1.setCreatedBy("system"); //extra column
 		
 		StockCategory stockCategory2 = new StockCategory();
 		stockCategory2.setStock(stock);
