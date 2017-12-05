@@ -2,14 +2,13 @@ package com.test.sample.Sample;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.management.relation.Role;
-
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,10 +17,12 @@ import com.test.sample.entity.Category;
 import com.test.sample.entity.Stock;
 import com.test.sample.entity.StockCategory;
 import com.test.sample.repository.CategoryDao;
+import com.test.sample.repository.StockCategoryRepository;
 import com.test.sample.repository.StockDao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SampleApplicationTests {
 
 	@Autowired
@@ -29,9 +30,12 @@ public class SampleApplicationTests {
 	
 	@Autowired
 	private StockDao stockDao;
+	
+	@Autowired
+	private StockCategoryRepository stockCategoryDao;
 
-//	@Test
-	public void sample() {
+	@Test
+	public void Asample() {
 		Stock stock = new Stock("001", "food");
 
 		Category category1 = new Category("CONSUMER", "CONSUMER COMPANY");
@@ -46,25 +50,21 @@ public class SampleApplicationTests {
 		stock.getStockCategories().add(stockCategory);
 		
 		stockDao.save(stock);
-		
-		addCategory();
-		
+				
 	}
 	
-	public void addCategory(){
-		Category category4 = new Category("PRODUCER", "producer COMPANY");
-		//new category, need save to get the id first
-		categoryDao.save(category4);
+	@Test
+	public void BaddCategory(){
 		Category category2 = new Category("supplier", "supplier COMPANY");
-		//new category, need save to get the id first
 		categoryDao.save(category2);
 		Category category3 = new Category("warehouse", "warehouse COMPANY");
-		//new category, need save to get the id first
 		categoryDao.save(category3);
+		Category category4 = new Category("producer", "producer COMPANY");
+		categoryDao.save(category4);
 	}
 	
-//	@Test
-	public void addStock(){
+	@Test
+	public void CaddStock(){
 		 Stock stock = new Stock("002","drink");
 		 
 		 Stock stock1 = new Stock("003", "snack");
@@ -97,14 +97,12 @@ public class SampleApplicationTests {
 		 stockCategories.add(stockCategory1);
 		 stockCategories.add(stockCategory2);
 		 stock1.setStockCategories(stockCategories);
-//		 stock1.getStockCategories().add(stockCategory1);
-//		 stock1.getStockCategories().add(stockCategory2);
 		 stockDao.save(stock1);
 
 	}
 	
-	@Test //gagal
-	public void deleteStockCategory(){
+//	@Test //gagal
+	public void DdeleteStockCategory(){
 		Stock stock3 = stockDao.findOne(3);
 		Category category1 = categoryDao.findOne(1);
 		
@@ -119,8 +117,8 @@ public class SampleApplicationTests {
 	}
 	
 	///saat menjalankan test update jadi error
-//	@Test //gagal
-	public void updatesample(){
+	@Test //gagal
+	public void Eupdatesample(){
 		Category category2 = categoryDao.findOne(2);
 		Category category3 = categoryDao.findOne(3);
 		Category category1 = categoryDao.findOne(1);
@@ -149,13 +147,13 @@ public class SampleApplicationTests {
 		stockCategory3.setCreatedBy("system"); //extra column
 		
 		Set<StockCategory> stockCategories = new HashSet<StockCategory>();
-//		stockCategories.add(stockCategory1);
 		stockCategories.add(stockCategory2);
 		stockCategories.add(stockCategory3);
 		
 		stock.setStockCategories(stockCategories);
 		
 		stockDao.save(stock);
+//		stockCategoryDao.save(stockCategory1);
 	}
 
 }
